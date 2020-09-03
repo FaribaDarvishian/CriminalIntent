@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.viewpager2.widget.ViewPager2 xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_pager_crimes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.activity.CrimePagerActivity">
+    android:orientation="vertical">
 
-</androidx.viewpager2.widget.ViewPager2>
+
+    <androidx.viewpager2.widget.ViewPager2 xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/view_pager_crimes"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        tools:context=".controller.activity.CrimePagerActivity">
+
+    </androidx.viewpager2.widget.ViewPager2>
+<LinearLayout
+    android:id="@+id/layout_buttons"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+<Button
+    android:id="@+id/btn_first"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="FIRST" />
+
+<Button
+    android:id="@+id/btn_previous"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+
+    android:text="PREVIOUS" />
+
+<Button
+    android:id="@+id/btn_next"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+
+    android:text="NEXT" />
+
+<Button
+    android:id="@+id/btn_last"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+
+    android:text="LAST" />
+
+</LinearLayout>
+</LinearLayout>

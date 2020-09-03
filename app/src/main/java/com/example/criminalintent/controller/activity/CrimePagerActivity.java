@@ -4,17 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.criminalintent.R;
+import com.example.criminalintent.animation.ZoomOutPageTransformer;
 import com.example.criminalintent.controller.fragment.CrimeDetailFragment;
 import com.example.criminalintent.model.Crime;
 import com.example.criminalintent.repository.CrimeRepository;
@@ -31,6 +32,11 @@ public class CrimePagerActivity extends AppCompatActivity {
     private UUID mCrimeId;
 
     private ViewPager2 mViewPagerCrimes;
+    private Button mButtonFirst;
+    private Button mButtonPrevious;
+    private Button mButtonNext;
+    private Button mButtonLast;
+
 
     public static Intent newIntent(Context context, UUID crimeId) {
         Intent intent = new Intent(context, CrimePagerActivity.class);
@@ -49,10 +55,57 @@ public class CrimePagerActivity extends AppCompatActivity {
 
         findViews();
         initViews();
+        setListener();
+    }
+
+    private void setListener() {
+
+        mButtonFirst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mViewPagerCrimes.setCurrentItem(0);
+
+            }
+        });
+        mButtonPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nextItem=mViewPagerCrimes.getCurrentItem()-1;
+                if (nextItem>0)
+                    mViewPagerCrimes.setCurrentItem(nextItem);
+                else
+                    mViewPagerCrimes.setCurrentItem(mRepository.getCrimes().size()-1);
+
+            }
+        });
+        mButtonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nextItem=mViewPagerCrimes.getCurrentItem()+1;
+                if (nextItem<mRepository.getCrimes().size())
+                mViewPagerCrimes.setCurrentItem(nextItem);
+                else
+                    mViewPagerCrimes.setCurrentItem(0);
+
+            }
+        });
+        mButtonLast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPagerCrimes.setCurrentItem(mRepository.getCrimes().size()-1);
+
+
+            }
+        });
     }
 
     private void findViews() {
         mViewPagerCrimes = findViewById(R.id.view_pager_crimes);
+        mButtonFirst=findViewById(R.id.btn_first);
+        mButtonPrevious=findViewById(R.id.btn_previous);
+        mButtonNext=findViewById(R.id.btn_next);
+        mButtonLast=findViewById(R.id.btn_last);
     }
 
     private void initViews() {
@@ -61,8 +114,16 @@ public class CrimePagerActivity extends AppCompatActivity {
         mViewPagerCrimes.setAdapter(adapter);
 
         int currentIndex = mRepository.getPosition(mCrimeId);
+
         mViewPagerCrimes.setCurrentItem(currentIndex);
+        //zoom animation
+        mViewPagerCrimes.setPageTransformer( new ZoomOutPageTransformer());
+        //Depth page transformer
+        // mViewPagerCrimes.setTranslationX(-1 * mViewPagerCrimes.getWidth() * currentIndex);
+        // Depth Out animation
+       // mViewPagerCrimes.setPageTransformer(new CubeOutDepthTransformation());
     }
+
 
     private class CrimePagerAdapter extends FragmentStateAdapter {
 
@@ -98,4 +159,5 @@ public class CrimePagerActivity extends AppCompatActivity {
             return mCrimes.size();
         }
     }
+
 }

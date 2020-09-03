@@ -38,6 +38,7 @@ public class CrimeDetailFragment extends Fragment {
     private Crime mCrime;
     private IRepository mRepository;
 
+
     public static CrimeDetailFragment newInstance(UUID crimeId) {
 
         Bundle args = new Bundle();
@@ -108,6 +109,7 @@ public class CrimeDetailFragment extends Fragment {
         super.onResume();
 
         Log.d(TAG, "onResume");
+
     }
 
     @Override
@@ -150,6 +152,8 @@ public class CrimeDetailFragment extends Fragment {
         mEditTextTitle = view.findViewById(R.id.crime_title);
         mButtonDate = view.findViewById(R.id.crime_date);
         mCheckBoxSolved = view.findViewById(R.id.crime_solved);
+
+
     }
 
     private void initViews() {
@@ -157,6 +161,7 @@ public class CrimeDetailFragment extends Fragment {
         mCheckBoxSolved.setChecked(mCrime.isSolved());
         mButtonDate.setText(mCrime.getDate().toString());
         mButtonDate.setEnabled(false);
+
     }
 
     private void setListeners() {
@@ -192,6 +197,8 @@ public class CrimeDetailFragment extends Fragment {
 
             }
         });
+
+
     }
 
     private void updateCrime() {

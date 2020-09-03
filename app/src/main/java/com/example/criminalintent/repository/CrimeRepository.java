@@ -83,4 +83,7 @@ public class CrimeRepository implements IRepository {
 
         return 0;
     }
+    public int getCrimeSize(){
+        return CRIME_SIZE;
+    }
 }
